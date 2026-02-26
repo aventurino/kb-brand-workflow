@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kat Burki — Brand Workflow & Operational Flows</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --bg: #F7F3ED;
+    --white: #FDFAF6;
+    --gold: #C4973A;
+    --gold-lt: #E8D4A8;
+    --charcoal: #231E17;
+    --gray: #7A6E62;
+    --lgray: #B5A99C;
+
+    /* Department = Yellow */
+    --dept-bg: #FFF8D6;
+    --dept-border: #D4AD2A;
+    --dept-text: #5A4500;
+
+    /* People = Green */
+    --person-hired-bg: #D6EDDA;
+    --person-hired-border: #3A8C47;
+    --person-hired-text: #1A4A22;
+
+    --person-pending-bg: #FDE8D0;
+    --person-pending-border: #C07030;
+    --person-pending-text: #5A2E00;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Jost', sans-serif;
+    color: var(--charcoal);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--charcoal);
+    color: white;
+    padding: 48px 60px 40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .header-left h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 1.1;
+  }
+
+  .header-left h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .header-left p {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--lgray);
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  .legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .legend-swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .swatch-dept { background: var(--dept-bg); border: 2px solid var(--dept-border); }
+  .swatch-hired { background: var(--person-hired-bg); border: 2px solid var(--person-hired-border); }
+  .swatch-pending { background: var(--person-pending-bg); border: 2px solid var(--person-pending-border); }
+
+  /* ── LAYOUT ── */
+  .canvas {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── CEO NODE ── */
+  .ceo-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
+  /* ── GENERIC NODE ── */
+  .node {
+    border-radius: 4px;
+    padding: 16px 20px;
+    position: relative;
+  }
+
+  .node-dept {
+    background: var(--dept-bg);
+    border: 2px solid var(--dept-border);
+  }
+
+  .node-person-hired {
+    background: var(--person-hired-bg);
+    border: 2px solid var(--person-hired-border);
+  }
+
+  .node-person-pending {
+    background: var(--person-pending-bg);
+    border: 2px solid var(--person-pending-border);
+  }
+
+  .node-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .node-dept .node-label { color: var(--dept-border); }
+  .node-person-hired .node-label { color: var(--person-hired-border); }
+  .node-person-pending .node-label { color: var(--person-pending-border); }
+
+  .node-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+  }
+
+  .node-dept .node-title { color: var(--dept-text); }
+  .node-person-hired .node-title { color: var(--person-hired-text); }
+  .node-person-pending .node-title { color: var(--person-pending-text); }
+
+  .node-meta {
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--gray);
+    margin-top: 3px;
+    font-style: italic;
+  }
+
+  .node-tasks {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    font-size: 10.5px;
+    line-height: 1.7;
+    color: #4a3e35;
+  }
+
+  .node-tasks li {
+    list-style: none;
+    padding-left: 12px;
+    position: relative;
+  }
+
+  .node-tasks li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    font-size: 9px;
+    color: var(--gold);
+    top: 2px;
+  }
+
+  /* ── CONNECTOR LINES ── */
+  .v-line {
+    width: 2px;
+    background: var(--gold-lt);
+    margin: 0 auto;
+  }
+
+  .h-bar {
+    height: 2px;
+    background: var(--gold-lt);
+  }
+
+  /* ── TREE STRUCTURES ── */
+
+  /* Top-level: CEO → children */
+  .tree-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Horizontal spread of children */
+  .children-row {
+    display: flex;
+    gap: 0;
+    width: 100%;
+    position: relative;
+  }
+
+  .child-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* The horizontal connector bar sits at top of children row */
+  .h-connector {
+    position: absolute;
+    top: 0;
+    height: 2px;
+    background: var(--gold-lt);
+  }
+
+  /* ── SECTION HEADINGS ── */
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+    margin: 50px 0 30px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::before,
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold-lt);
+  }
+
+  /* ── DEPT + ROLE CARDS ── */
+  .dept-block {
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .dept-block-header {
+    padding: 14px 20px;
+    background: var(--dept-bg);
+    border-bottom: 2px solid var(--dept-border);
+  }
+
+  .dept-block-header .node-title {
+    color: var(--dept-text);
+    font-size: 16px;
+  }
+
+  .dept-block-header .node-meta {
+    color: var(--dept-border);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .dept-block-body {
+    padding: 0;
+  }
+
+  .role-row {
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .role-row:last-child { border-bottom: none; }
+
+  .role-row.indent {
+    padding-left: 32px;
+    background: rgba(250,247,242,0.6);
+    border-left: 3px solid var(--gold-lt);
+    margin-left: 20px;
+    margin-right: 0;
+  }
+
+  .role-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .role-title.hired { color: var(--person-hired-text); }
+  .role-title.pending { color: var(--person-pending-text); }
+
+  .role-badge {
+    display: inline-block;
+    font-size: 8.5px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin: 4px 0 6px;
+    font-weight: 600;
+  }
+
+  .badge-hired {
+    background: var(--person-hired-bg);
+    color: var(--person-hired-border);
+    border: 1px solid var(--person-hired-border);
+  }
+
+  .badge-pending {
+    background: var(--person-pending-bg);
+    color: var(--person-pending-border);
+    border: 1px solid var(--person-pending-border);
+  }
+
+  .role-reports {
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--gray);
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+
+  .role-tasks-sm {
+    font-size: 10.5px;
+    line-height: 1.7;
+    color: #4a3e35;
+  }
+
+  .role-tasks-sm li {
+    list-style: none;
+    padding-left: 12px;
+    position: relative;
+  }
+
+  .role-tasks-sm li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 9px;
+  }
+
+  /* ── BIG GRID ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; }
+
+  @media (max-width: 1100px) {
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .grid-4 { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 700px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+
+  footer {
+    text-align: center;
+    padding: 32px;
+    border-top: 1px solid var(--gold-lt);
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--lgray);
+  }
+
+  /* CEO special card */
+  .ceo-card {
+    background: var(--charcoal);
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 22px 36px;
+    min-width: 380px;
+    text-align: center;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+  }
+
+  .ceo-card .node-label { color: var(--gold); text-align: center; }
+  .ceo-card .node-title { color: white; font-size: 22px; text-align: center; }
+  .ceo-card .node-meta { color: var(--lgray); text-align: center; }
+  .ceo-card .node-tasks { border-top-color: rgba(255,255,255,0.1); color: #C8BFB0; }
+  .ceo-card .node-tasks li::before { color: var(--gold); }
+
+
+
+/* ── FLOWS STYLES ── */
+
+  :root {
+    --bg: #F7F3ED;
+    --white: #FDFAF6;
+    --charcoal: #231E17;
+    --gold: #C4973A;
+    --gold-lt: #E8D4A8;
+    --gray: #7A6E62;
+    --lgray: #B5A99C;
+
+    /* Node type colours — each flow gets its own accent */
+    --dept-bg: #FFF8D6;
+    --dept-border: #D4AD2A;
+    --dept-text: #5A4500;
+
+    --person-bg: #D6EDDA;
+    --person-border: #3A8C47;
+    --person-text: #1A4A22;
+
+    /* Flow accent palette */
+    --f1: #3A6B8C;   /* Vision */
+    --f2: #7A3A8C;   /* Campaign */
+    --f3: #8C3A3A;   /* Product Launch */
+    --f4: #3A7A5A;   /* Content */
+    --f5: #5A3A8C;   /* Science Approval */
+    --f6: #8C6A3A;   /* Founder Visibility */
+    --f7: #3A5A8C;   /* Retail */
+    --f8: #3A8C7A;   /* CRM */
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Jost', sans-serif;
+    color: var(--charcoal);
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--charcoal);
+    color: white;
+    padding: 48px 60px 40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .header-left h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 1.1;
+  }
+
+  .header-left h1 em { font-style: italic; color: var(--gold); }
+
+  .header-left p {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--lgray);
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+
+  .header-right {
+    font-size: 11px;
+    color: var(--lgray);
+    letter-spacing: 1px;
+    line-height: 1.8;
+    max-width: 340px;
+    border-left: 2px solid var(--gold);
+    padding-left: 16px;
+  }
+
+  /* ── CANVAS ── */
+  .canvas {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  /* ── FLOW BLOCK ── */
+  .flow-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .flow-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .flow-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .flow-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .flow-subtitle {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 2px;
+  }
+
+  .flow-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, currentColor 0%, transparent 100%);
+    opacity: 0.2;
+  }
+
+  /* ── STEPS ROW ── */
+  .steps-row {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0;
+    padding-bottom: 4px;
+  }
+
+  /* ── STEP ── */
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  .step-card {
+    background: white;
+    border-radius: 6px;
+    padding: 16px 18px;
+    min-width: 180px;
+    max-width: 240px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    border-top: 3px solid;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .step-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+  }
+
+  .step-who {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .step-action {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .step-detail {
+    font-size: 10px;
+    line-height: 1.6;
+    color: var(--gray);
+  }
+
+  .step-detail li {
+    list-style: none;
+    padding-left: 10px;
+    position: relative;
+  }
+
+  .step-detail li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: bold;
+  }
+
+  /* Arrow between steps */
+  .arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    color: var(--lgray);
+    flex-shrink: 0;
+  }
+
+  .arrow-line {
+    width: 28px;
+    height: 2px;
+    background: currentColor;
+    position: relative;
+  }
+
+  .arrow-line::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: -4px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid currentColor;
+  }
+
+  .arrow-label {
+    font-size: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+    white-space: nowrap;
+  }
+
+  /* ── PARALLEL STEPS (side by side below a split) ── */
+  .steps-split {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+  }
+
+  .split-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .split-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--lgray);
+    text-align: center;
+    margin: 8px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .split-label::before,
+  .split-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold-lt);
+    min-width: 40px;
+  }
+
+  .step-card.compact {
+    min-width: 150px;
+    max-width: 180px;
+    padding: 12px 14px;
+  }
+
+  .step-card.compact .step-action {
+    font-size: 13px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-lt), transparent);
+  }
+
+  footer {
+    text-align: center;
+    padding: 32px;
+    border-top: 1px solid var(--gold-lt);
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--lgray);
+  }
+
+
+/* ── SHARED NAV ── */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #1a1510;
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #C4973A;
+}
+
+.nav-btn {
+  padding: 14px 36px;
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #B5A99C;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  border-right: 1px solid rgba(196,151,58,0.2);
+}
+
+.nav-btn:hover { color: #C4973A; background: rgba(196,151,58,0.06); }
+.nav-btn.active { color: #C4973A; background: rgba(196,151,58,0.1); border-bottom: 2px solid #C4973A; }
+
+/* ── SECTION PANELS ── */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ── SHARED HEADER ── */
+.shared-header {
+  background: #231E17;
+  color: white;
+  padding: 48px 60px 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.shared-header h1 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 38px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  line-height: 1.1;
+}
+.shared-header h1 em { font-style: italic; color: #C4973A; }
+.shared-header p {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: #B5A99C;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.header-right-desc {
+  font-size: 11px;
+  color: #B5A99C;
+  letter-spacing: 1px;
+  line-height: 1.8;
+  max-width: 340px;
+  border-left: 2px solid #C4973A;
+  padding-left: 16px;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.legend-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.swatch-dept { background: #FFF8D6; border: 2px solid #D4AD2A; }
+.swatch-hired { background: #D6EDDA; border: 2px solid #3A8C47; }
+.swatch-pending { background: #FDE8D0; border: 2px solid #C07030; }
+
+</style>
+</head>
+<body style="background:#F7F3ED; margin:0;">
+
+<!-- SHARED HEADER -->
+<div class="shared-header">
+  <div class="header-left">
+    <h1>Kat Burki Skincare<br><em>Brand Workflow</em></h1>
+    <p>Organizational Structure & Operational Flows</p>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><span class="legend-swatch swatch-dept"></span> Department</div>
+    <div class="legend-item"><span class="legend-swatch swatch-hired"></span> Role — Hired</div>
+    <div class="legend-item"><span class="legend-swatch swatch-pending"></span> Role — Pending</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="top-nav">
+  <button class="nav-btn active" onclick="showPanel('org')">Org Chart</button>
+  <button class="nav-btn" onclick="showPanel('flows')">Operational Flows</button>
+</nav>
+
+<!-- ORG CHART PANEL -->
+<div id="panel-org" class="panel active">
+<div class="canvas">
+
+  <!-- ═══════════════════════════════════════ CEO ═══════════════════════════════════════ -->
+  <div class="ceo-wrap">
+    <div class="ceo-card node">
+      <div class="node-label">Leadership</div>
+      <div class="node-title">CEO / Founder</div>
+      <div class="node-meta">Hired</div>
+      <ul class="node-tasks">
+        <li>Set the vision, philosophy & brand positioning</li>
+        <li>Approve campaigns across all touchpoints</li>
+        <li>Define retail philosophy & clinical presence</li>
+        <li>Science authority — Face of the brand</li>
+        <li>Technology and product innovator</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="v-line" style="height:30px; width:2px;"></div>
+
+  <!-- ═══════════════════════ DEPARTMENTS REPORTING TO CEO ══════════════════════════════ -->
+  <div class="section-label">Departments reporting directly to CEO / Founder</div>
+
+  <div class="grid-3">
+
+    <!-- ── FOUNDER TEAM DEPARTMENT ── -->
+    <div class="dept-block">
+      <div class="dept-block-header">
+        <div class="node-label">Department</div>
+        <div class="node-title">Founder Team Department</div>
+        <div class="node-meta">Reports to CEO / Founder</div>
+      </div>
+      <div class="dept-block-body">
+
+        <div class="role-row">
+          <div class="role-title hired">Chief of Staff</div>
+          <span class="role-badge badge-hired">Hired</span>
+          <div class="role-reports">Reports to CEO / Founder</div>
+          <ul class="role-tasks-sm">
+            <li>Founder Calendar & Visibility: own and manage founder's calendar (content shoots, events, press, speaking)</li>
+            <li>Coordinate with PR & social teams for founder appearances, Lives, collabs, media</li>
+            <li>Maintain visibility roadmap & content calendar checkpoints</li>
+            <li>Ensure founder briefs are prepared and aligned before all public-facing initiatives</li>
+            <li>Project & Brand Execution: track founder-led campaigns, flag bottlenecks, coordinate social series</li>
+            <li>External Relationship Management: partnerships, speaking requests, talent agent & PR firm liaison</li>
+            <li>Internal Communication: translate founder ideas into actionable briefs; streamline feedback loops</li>
+          </ul>
+        </div>
+
+        <div class="role-row indent">
+          <div class="role-title pending">Influencer & VIP Relations Executive Manager</div>
+          <span class="role-badge badge-pending">Pending</span>
+          <div class="role-reports">Reports to Chief of Staff</div>
+          <ul class="role-tasks-sm">
+            <li>Scheduling, logistics, admin</li>
+            <li>VIP partner relationships: influencers, top customers, MUAs, celebrities</li>
+            <li>Oversee seeding & gifting</li>
+            <li>Dermatologist relationships (in coordination with Scientific Communications)</li>
+            <li>Events guest list</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── CREATIVE & CONTENT DEPARTMENT ── -->
+    <div class="dept-block">
+      <div class="dept-block-header">
+        <div class="node-label">Department</div>
+        <div class="node-title">Creative and Content Department</div>
+        <div class="node-meta">Reports to CEO / Founder — produces all visual assets, manages DAM</div>
+      </div>
+      <div class="dept-block-body">
+
+        <div class="role-row">
+          <div class="role-title pending">Creative Director</div>
+          <span class="role-badge badge-pending">Pending</span>
+          <div class="role-reports">Reports to CEO / Founder</div>
+          <ul class="role-tasks-sm">
+            <li>In charge of all visual ecosystem</li>
+            <li>Campaign strategy: implement CEO/Founder vision, mood boards</li>
+            <li>Luxury alignment & founder positioning</li>
+            <li>Infographic & science accuracy (cross-functional with Scientific Communications)</li>
+          </ul>
+        </div>
+
+        <div class="role-row indent">
+          <div class="role-title pending">Content Director</div>
+          <span class="role-badge badge-pending">Pending</span>
+          <div class="role-reports">Reports to Creative Director</div>
+          <ul class="role-tasks-sm">
+            <li>Social calendar & founder visibility content & strategy</li>
+            <li>Video shoots: planning and oversight</li>
+            <li>Luxury adherence and direction</li>
+            <li>Management of DAM (asset management across all touchpoints)</li>
+          </ul>
+        </div>
+
+        <div class="role-row indent">
+          <div class="role-title hired">Art Director</div>
+          <span class="role-badge badge-hired">Hired</span>
+          <div class="role-reports">Reports to Creative Director</div>
+          <ul class="role-tasks-sm">
+            <li>Packaging layout oversight</li>
+            <li>Retail banners and in-store materials</li>
+            <li>Brand and DTC collateral</li>
+            <li>Creative agency direction & graphic design oversight</li>
+          </ul>
+        </div>
+
+        <div class="role-row indent">
+          <div class="role-title hired">Copywriter</div>
+          <span class="role-badge badge-hired">Hired</span>
+          <div class="role-reports">Reports to Creative Director</div>
+          <ul class="role-tasks-sm">
+            <li>Campaign language</li>
+            <li>Copy for: emails, social media, decks, press, retail/e-retail</li>
+            <li>Collaborate with the Lead Scientific Writer</li>
+          </ul>
+        </div>
+
+        <div class="role-row indent">
+          <div class="role-title hired">Lead Videographer</div>
+          <span class="role-badge badge-hired">Hired</span>
+          <div class="role-reports">Reports to Creative Director</div>
+          <ul class="role-tasks-sm">
+            <li>Capture hero brand moments (luxury clinical authority, not social-first)</li>
+            <li>Monthly event filming & photos (2×/month)</li>
+            <li>Regular founder editorial pieces (2 environments × 2×/month)</li>
+            <li>8 finished videos/month + 8 editorial images/month + BTS footage</li>
+            <li>Monthly calendar review with founder team</li>
+          </ul>
+        </div>
+
+        <div class="role-row indent">
+          <div class="role-title pending">Video Producer / Editor</div>
+          <span class="role-badge badge-pending">Pending</span>
+          <div class="role-reports">Reports to Creative Director</div>
+          <ul class="role-tasks-sm">
+            <li>Video & asset post-production / editing</li>
+            <li>Quick turnaround with luxury refinement & brand adherence</li>
+            <li>Works closely with Content Director</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SOCIAL MEDIA DEPARTMENT ── -->
+    <div class="dept-block">
+      <div class="dept-block-header">
+        <div class="node-label">Department</div>
+        <div class="node-title">Social Media Department</div>
+        <div class="node-meta">Reports to CEO / Founder</div>
+      </div>
+      <div class="dept-block-body">
+
+        <div class="role-row">
+          <div class="role-title pending">Head of Social Media and Founder Platform</div>
+          <span class="role-badge badge-pending">Pending</span>
+          <div class="role-reports">Reports to CEO / Founder</div>
+          <ul class="role-tasks-sm">
+            <li>Architect 12-month founder content roadmap</li>
+            <li>Align science and luxury; integrate retail moments</li>
+            <li>Oversee social content calendars; protect brand positioning</li>
+            <li>Own platform voice across channels & founder posting cadence</li>
+            <li>Science translation & retail/PR calendar amplification</li>
+            <li>Cultural relevancy alignment</li>
+          </ul>
+        </div>
+
+        <div class="role-row indent">
+          <div class="role-title hired">Social Media Manager</div>
+          <span class="role-badge badge-hired">Hired</span>
+          <div class="role-reports">Reports to Head of Social Media and Founder Platform</div>
+          <ul class="role-tasks-sm">
+            <li>Comment & engagement growth strategy</li>
+            <li>VIP partner relationships: influencers, top customers, MUAs, celebrities</li>
+            <li>UGC program management & deployment</li>
+            <li>Oversee agencies and community management</li>
+            <li>KPI tracking, competitor analysis, monthly data analysis & reporting</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════ GLOBAL MARKETING ═════════════════════════════════ -->
+  <div class="section-label">Global Marketing Department — CMO Level</div>
+
+  <div style="display:flex; justify-content:center; margin-bottom:0;">
+    <div class="node node-person-pending" style="min-width:420px; text-align:center; box-shadow:0 4px 24px rgba(0,0,0,0.12);">
+      <div class="node-label">Global Marketing Department</div>
+      <div class="node-title">Chief Marketing Officer</div>
+      <span class="role-badge badge-pending" style="display:inline-block; margin:6px 0;">Pending — Reports to CEO / Founder</span>
+      <ul class="node-tasks" style="text-align:left;">
+        <li>Take the vision and implement the brand strategy</li>
+        <li>Retail marketing execution</li>
+        <li>Digital and Growth oversight (eCommerce, Social Media, etc.)</li>
+        <li>Consolidate global campaign calendar; set KPIs across all departments</li>
+        <li>Revenue alignment based on campaign goals and executions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="v-line" style="height:30px;"></div>
+
+  <!-- ═══════════════════════ DEPARTMENTS REPORTING TO CMO ══════════════════════════════ -->
+  <div class="section-label">Departments reporting to CMO</div>
+
+  <div class="grid-4">
+
+    <!-- ── BRAND MARKETING DEPARTMENT ── -->
+    <div class="dept-block">
+      <div class="dept-block-header">
+        <div class="node-label">Department</div>
+        <div class="node-title">Brand Marketing Department</div>
+        <div class="node-meta">Reports to CMO</div>
+      </div>
+      <div class="dept-block-body">
+        <div class="role-row">
+          <div class="role-title pending">Director of Brand Marketing</div>
+          <span class="role-badge badge-pending">Pending</span>
+          <div class="role-reports">Reports to CMO</div>
+          <ul class="role-tasks-sm">
+            <li>Own positioning, campaigns, messaging (luxury, science, founder-led)</li>
+            <li>Oversee brand calendars: define monthly themes, ensure all departments have assets (visuals, copy) communicated and executed across all channels</li>
+            <li>Ensure all campaigns are developed cross-functionally</li>
+            <li>Launch strategy: prepare launch package (PR, Social Media, Retail); create tools usable internally and externally</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SCIENTIFIC COMMUNICATIONS DEPARTMENT ── -->
+    <div class="dept-block">
+      <div class="dept-block-header">
+        <div class="node-label">Department</div>
+        <div class="node-title">Scientific Communications Department</div>
+        <div class="node-meta">Reports to CMO</div>
+      </div>
+      <div class="dept-block-body">
+
+        <div class="role-row">
+          <div class="role-title hired">VP of Scientific Communications</div>
+          <span class="role-badge badge-hired">Hired</span>
+          <div class="role-reports">Reports to CMO</div>
+          <ul class="role-tasks-sm">
+            <li>Guardian & translator of KB's scientific philosophy (not R&D)</li>
+            <li>Own scientific positioning, claims, clinical storytelling, formula education hierarchy</li>
+            <li>Develop & maintain Science Language Library and approved terminology</li>
+            <li>Review & approve all science content before founder review</li>
+            <li>Ensure luxury tone with scientific accuracy</li>
+            <li>Protect founder time — convert insights into reusable frameworks</li>
+            <li>Train internal teams & external partners on brand science</li>
+            <li>Collaborate with regulatory, legal & R&D partners</li>
+            <li>Research partnerships (universities, publications)</li>
+          </ul>
+        </div>
+
+        <div class="role-row indent">
+          <div class="role-title pending">Product Marketing Manager</div>
+          <span class="role-badge badge-pending">Pending</span>
+          <div class="role-reports">Reports to VP of Scientific Communications</div>
+          <ul class="role-tasks-sm">
+            <li>Key coordination role</li>
+            <li>Track product positioning</li>
+            <li>Write all briefs & clinical storytelling</li>
+            <li>Pricing & merchandizing strategy</li>
+            <li>Go-to-market planning & preparation</li>
+            <li>Product oversight: packaging, pack shots, PDPs, B&A, clinical storytelling, founder video, guidelines, product education</li>
+          </ul>
+        </div>
+
+        <div class="role-row indent">
+          <div class="role-title hired">Lead Scientific Writer / Biochemistry Content Specialist</div>
+          <span class="role-badge badge-hired">Hired</span>
+          <div class="role-reports">Reports to VP of Scientific Communications</div>
+          <ul class="role-tasks-sm">
+            <li>Clinical studies summaries & white papers</li>
+            <li>Retail-ready claim sheets & derm-facing decks</li>
+            <li>Clinical FAQ documents</li>
+            <li>PDP copy, briefing, scripts, retail education decks</li>
+            <li>Social science content (organic & paid media)</li>
+            <li>Translate healing biochemistry approach</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── DIGITAL & GROWTH DEPARTMENT ── -->
+    <div class="dept-block">
+      <div class="dept-block-header">
+        <div class="node-label">Department</div>
+        <div class="node-title">Digital and Growth Department</div>
+        <div class="node-meta">Reports to CMO</div>
+      </div>
+      <div class="dept-block-body">
+
+        <div class="role-row">
+          <div class="role-title hired">Director of Growth and Marketing</div>
+          <span class="role-badge badge-hired">Hired</span>
+          <div class="role-reports">Reports to CMO</div>
+          <ul class="role-tasks-sm">
+            <li>Architect holistic global digital growth roadmap aligned to revenue & brand equity</li>
+            <li>Performance: own DTC growth — paid social, search, SEO, SMS, email, affiliate, influencer</li>
+            <li>Build & optimize full performance stack (CAC, ROAS, MER, retention, LTV)</li>
+            <li>Scale affiliate marketing as structured performance channel</li>
+            <li>E-Retail: lead growth across global e-retail partners; digital co-op (banners, placements, sampling)</li>
+            <li>CRM & Loyalty: global CRM strategy (email, SMS, segmentation, automation); loyalty program; systematic review generation</li>
+            <li>Digital Experience: continuously improve DTC UX; introduce AI tools (skin diagnosis, recommendation engines, ingredient education)</li>
+            <li>Customer Journey: align Customer Service, CRM & Sales under one cohesive strategy</li>
+            <li>Product Launch: integrated digital GTM for all launches (timelines, forecasts, sampling)</li>
+            <li>Partnerships & strategic digital collaborations</li>
+            <li>Leadership: manage Social, Performance, CRM, Affiliate, Agencies & Data teams</li>
+          </ul>
+        </div>
+
+        <div class="role-row indent">
+          <div class="role-title hired">Senior Manager, CRM</div>
+          <span class="role-badge badge-hired">Hired</span>
+          <div class="role-reports">Reports to Director of Growth and Marketing</div>
+          <ul class="role-tasks-sm">
+            <li>Full ownership of CRM strategy & tools (Klaviyo)</li>
+            <li>Lifecycle campaigns: onboarding, engagement, retention, re-engagement, churn prevention, advocacy</li>
+            <li>Strategic CRM calendar aligned with launches, promos & loyalty programs</li>
+            <li>Customer segmentation & hyper-personalized messaging</li>
+            <li>Omni-channel communication: email, SMS, push notifications</li>
+            <li>A/B testing, KPI tracking & optimization (open rates, CTR, conversions)</li>
+            <li>Craft luxury-tone, conversion-driven copy</li>
+            <li>Partner with Creative teams for on-brand assets</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── RETAIL & TRADE MARKETING DEPARTMENT ── -->
+    <div class="dept-block">
+      <div class="dept-block-header">
+        <div class="node-label">Department</div>
+        <div class="node-title">Retail and Trade Marketing</div>
+        <div class="node-meta">Reports to CMO</div>
+      </div>
+      <div class="dept-block-body">
+
+        <div class="role-row">
+          <div class="role-title hired">Director of Retail and Trade Marketing</div>
+          <span class="role-badge badge-hired">Hired</span>
+          <div class="role-reports">Reports to CMO</div>
+          <ul class="role-tasks-sm">
+            <li>Primary function: bridge gap between Sales and Marketing</li>
+            <li>Retail launch toolkits & in-store storytelling</li>
+            <li>Visual merchandising plan: accurate and implemented in stores</li>
+            <li>Education strategy (works closely with Scientific Communications)</li>
+            <li>Retail sales analysis in collaboration with sales team</li>
+          </ul>
+        </div>
+
+        <div class="role-row indent">
+          <div class="role-title hired">Trade Marketing Manager</div>
+          <span class="role-badge badge-hired">Hired</span>
+          <div class="role-reports">Reports to Director of Retail and Trade Marketing</div>
+          <ul class="role-tasks-sm">
+            <li>Brand campaigns & retail-specific store-level campaigns</li>
+            <li>Execution of approved co-op plans with retailers</li>
+            <li>Execution of approved sampling programs</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<!-- FLOWS PANEL -->
+<div id="panel-flows" class="panel">
+  <div style="background:#231E17; padding:24px 60px; border-bottom:1px solid rgba(196,151,58,0.2);">
+    <p style="font-family:Jost,sans-serif; font-size:11px; letter-spacing:1px; color:#B5A99C; line-height:1.8; max-width:700px; border-left:2px solid #C4973A; padding-left:16px;">
+      The following flows map how work actually moves across the organization — who initiates, who executes, who approves, and how outputs reach each channel. All flows are derived directly from the role descriptions in the organizational structure.
+    </p>
+  </div>
+<div class="canvas">
+
+  <!-- ══════════════════════════════════════════════════════
+       FLOW 1 — VISION TO EXECUTION
+  ══════════════════════════════════════════════════════ -->
+  <div class="flow-block">
+    <div class="flow-header">
+      <div class="flow-number" style="background:var(--f1);">1</div>
+      <div>
+        <div class="flow-title" style="color:var(--f1);">Vision to Execution</div>
+        <div class="flow-subtitle">How the brand strategy moves from top to all channels</div>
+      </div>
+    </div>
+
+    <div class="steps-row">
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f1);">
+          <div class="step-who" style="color:var(--f1);">CEO / Founder</div>
+          <div class="step-action">Sets Vision & Brand Philosophy</div>
+          <ul class="step-detail">
+            <li>Brand positioning & philosophy</li>
+            <li>Science authority direction</li>
+            <li>Retail philosophy & clinical standards</li>
+            <li>Approves campaigns on all touchpoints</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f1);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">delegates to</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f1);">
+          <div class="step-who" style="color:var(--f1);">Chief of Staff</div>
+          <div class="step-action">Translates & Protects Founder's Time</div>
+          <ul class="step-detail">
+            <li>Turns founder ideas into actionable briefs</li>
+            <li>Ensures feedback loops are streamlined</li>
+            <li>Manages founder calendar & visibility roadmap</li>
+            <li>Flags bottlenecks; organizes creative reviews</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f1);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">feeds into</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f1);">
+          <div class="step-who" style="color:var(--f1);">CMO (Global Marketing)</div>
+          <div class="step-action">Implements Brand Strategy</div>
+          <ul class="step-detail">
+            <li>Takes vision and implements it across all departments</li>
+            <li>Consolidates global campaign calendar</li>
+            <li>Sets KPIs per department</li>
+            <li>Aligns revenue to campaign goals</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f1);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">cascades to</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f1);">
+          <div class="step-who" style="color:var(--f1);">Director of Brand Marketing</div>
+          <div class="step-action">Owns Positioning & Monthly Calendar</div>
+          <ul class="step-detail">
+            <li>Defines monthly themes</li>
+            <li>Distributes assets & info to all departments</li>
+            <li>Ensures cross-functional campaign development</li>
+            <li>Creates tools usable across all channels</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f1);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">informs</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f1);">
+          <div class="step-who" style="color:var(--f1);">All Departments</div>
+          <div class="step-action">Execute Across Channels</div>
+          <ul class="step-detail">
+            <li>Creative: visual assets</li>
+            <li>Digital & Growth: DTC + e-retail + CRM</li>
+            <li>Social Media: organic platforms</li>
+            <li>Retail & Trade: in-store</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       FLOW 2 — PRODUCT LAUNCH
+  ══════════════════════════════════════════════════════ -->
+  <div class="flow-block">
+    <div class="flow-header">
+      <div class="flow-number" style="background:var(--f3);">2</div>
+      <div>
+        <div class="flow-title" style="color:var(--f3);">Product Launch</div>
+        <div class="flow-subtitle">From science foundation to full channel rollout</div>
+      </div>
+    </div>
+
+    <div class="steps-row">
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f3);">
+          <div class="step-who" style="color:var(--f3);">VP of Scientific Communications</div>
+          <div class="step-action">Establishes Science Foundation</div>
+          <ul class="step-detail">
+            <li>Owns claims, clinical storytelling</li>
+            <li>Reviews before-&-after assets</li>
+            <li>Approves all science language</li>
+            <li>Builds formula education hierarchy</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f3);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">hands off to</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f3);">
+          <div class="step-who" style="color:var(--f3);">Product Marketing Manager</div>
+          <div class="step-action">Prepares GTM Brief</div>
+          <ul class="step-detail">
+            <li>Writes all briefs</li>
+            <li>GTM planning & preparation</li>
+            <li>Tracks product positioning</li>
+            <li>Oversees: pack shots, PDPs, B&A, product education</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f3);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">briefs</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f3);">
+          <div class="step-who" style="color:var(--f3);">Director of Brand Marketing</div>
+          <div class="step-action">Builds Launch Package</div>
+          <ul class="step-detail">
+            <li>Prepares launch package (PR, Social, Retail)</li>
+            <li>Creates cross-channel tools</li>
+            <li>Briefs all departments simultaneously</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f3);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">activates</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f3);">
+          <div class="step-who" style="color:var(--f3);">Director of Growth & Marketing</div>
+          <div class="step-action">Leads Digital GTM</div>
+          <ul class="step-detail">
+            <li>Owns timelines & performance forecasts</li>
+            <li>Sampling strategy & channel rollout</li>
+            <li>Consistency: DTC, e-retail, paid, CRM, influencer, affiliate</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f3);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">parallel to</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f3);">
+          <div class="step-who" style="color:var(--f3);">Director of Retail & Trade Marketing</div>
+          <div class="step-action">Activates In-Store</div>
+          <ul class="step-detail">
+            <li>Retail launch toolkits</li>
+            <li>In-store storytelling</li>
+            <li>Visual merchandising implementation</li>
+            <li>Education strategy with Scientific Comms</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="split-label" style="margin-top:20px;">Parallel execution at channel level</div>
+    <div class="split-row">
+
+      <div class="step-card compact" style="border-color:var(--f3);">
+        <div class="step-who" style="color:var(--f3);">Lead Scientific Writer</div>
+        <div class="step-action">PDP copy, claim sheets, retail education decks</div>
+      </div>
+
+      <div class="step-card compact" style="border-color:var(--f3);">
+        <div class="step-who" style="color:var(--f3);">Copywriter</div>
+        <div class="step-action">Campaign language, emails, social, press copy</div>
+      </div>
+
+      <div class="step-card compact" style="border-color:var(--f3);">
+        <div class="step-who" style="color:var(--f3);">Art Director + Videographer</div>
+        <div class="step-action">Visual assets, hero videos, editorial images</div>
+      </div>
+
+      <div class="step-card compact" style="border-color:var(--f3);">
+        <div class="step-who" style="color:var(--f3);">Trade Marketing Manager</div>
+        <div class="step-action">Co-op plan execution, sampling programs at store level</div>
+      </div>
+
+      <div class="step-card compact" style="border-color:var(--f3);">
+        <div class="step-who" style="color:var(--f3);">Senior Manager, CRM</div>
+        <div class="step-action">Launch-aligned CRM calendar, segmented email & SMS campaigns</div>
+      </div>
+
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       FLOW 3 — SCIENTIFIC CONTENT APPROVAL
+  ══════════════════════════════════════════════════════ -->
+  <div class="flow-block">
+    <div class="flow-header">
+      <div class="flow-number" style="background:var(--f5);">3</div>
+      <div>
+        <div class="flow-title" style="color:var(--f5);">Scientific Content Approval</div>
+        <div class="flow-subtitle">Protecting brand credibility before anything goes live</div>
+      </div>
+    </div>
+
+    <div class="steps-row">
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f5);">
+          <div class="step-who" style="color:var(--f5);">Any Department</div>
+          <div class="step-action">Produces Science-Related Content</div>
+          <ul class="step-detail">
+            <li>Marketing copy mentioning claims</li>
+            <li>Social posts, PDPs, retail decks</li>
+            <li>PR materials, founder scripts</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f5);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">sent for review to</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f5);">
+          <div class="step-who" style="color:var(--f5);">VP of Scientific Communications</div>
+          <div class="step-action">Reviews & Approves All Science Language</div>
+          <ul class="step-detail">
+            <li>Checks against Science Language Library & claims hierarchy</li>
+            <li>Ensures luxury tone + scientific accuracy</li>
+            <li>Validates B&A assets and visual results</li>
+            <li>Collaborates with regulatory & legal partners</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f5);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">approved content goes to</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f5);">
+          <div class="step-who" style="color:var(--f5);">CEO / Founder</div>
+          <div class="step-action">Final Founder Review</div>
+          <ul class="step-detail">
+            <li>Only sees pre-approved science content</li>
+            <li>Founder time protected by VP Sci Comms filter</li>
+            <li>Approves campaigns across all touchpoints</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f5);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">cleared for</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f5);">
+          <div class="step-who" style="color:var(--f5);">All Channels</div>
+          <div class="step-action">Deployment Across Brand Touchpoints</div>
+          <ul class="step-detail">
+            <li>Marketing & founder content</li>
+            <li>PR & retail education</li>
+            <li>e-Commerce (PDPs, descriptions)</li>
+            <li>Social science content (organic & paid)</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       FLOW 4 — CONTENT CREATION & DISTRIBUTION
+  ══════════════════════════════════════════════════════ -->
+  <div class="flow-block">
+    <div class="flow-header">
+      <div class="flow-number" style="background:var(--f4);">4</div>
+      <div>
+        <div class="flow-title" style="color:var(--f4);">Content Creation & Distribution</div>
+        <div class="flow-subtitle">From brand vision to published assets across all channels</div>
+      </div>
+    </div>
+
+    <div class="steps-row">
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f4);">
+          <div class="step-who" style="color:var(--f4);">CEO / Founder</div>
+          <div class="step-action">Sets Creative Vision</div>
+          <ul class="step-detail">
+            <li>Brand philosophy & luxury positioning</li>
+            <li>Founder as face of brand</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f4);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">implemented by</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f4);">
+          <div class="step-who" style="color:var(--f4);">Creative Director</div>
+          <div class="step-action">Translates Vision into Creative Direction</div>
+          <ul class="step-detail">
+            <li>Mood boards, visual ecosystem</li>
+            <li>Campaign strategy</li>
+            <li>Luxury alignment & founder positioning</li>
+            <li>Science accuracy (with Scientific Comms)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f4);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">directs</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f4);">
+          <div class="step-who" style="color:var(--f4);">Content Director</div>
+          <div class="step-action">Plans & Coordinates Production</div>
+          <ul class="step-detail">
+            <li>Social calendar & founder content strategy</li>
+            <li>Video shoot planning & oversight</li>
+            <li>Manages DAM (all assets, usage rights)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f4);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">produces with</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f4);">
+          <div class="step-who" style="color:var(--f4);">Production Team</div>
+          <div class="step-action">Creates Assets</div>
+          <ul class="step-detail">
+            <li>Lead Videographer: 8 videos + 8 editorials/month</li>
+            <li>Art Director: packaging, banners, collateral</li>
+            <li>Copywriter: campaign copy + scientific copy (with Lead Scientific Writer)</li>
+            <li>Video Producer/Editor: post-production</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f4);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">stored in DAM, shared to</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f4);">
+          <div class="step-who" style="color:var(--f4);">All Teams</div>
+          <div class="step-action">Distribute Across Channels</div>
+          <ul class="step-detail">
+            <li>Social Media: organic platforms</li>
+            <li>Digital & Growth: paid + e-retail</li>
+            <li>Retail & Trade: in-store materials</li>
+            <li>CRM: lifecycle email & SMS</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       FLOW 5 — FOUNDER VISIBILITY
+  ══════════════════════════════════════════════════════ -->
+  <div class="flow-block">
+    <div class="flow-header">
+      <div class="flow-number" style="background:var(--f6);">5</div>
+      <div>
+        <div class="flow-title" style="color:var(--f6);">Founder Visibility Management</div>
+        <div class="flow-subtitle">How the founder's public presence is planned and executed</div>
+      </div>
+    </div>
+
+    <div class="steps-row">
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f6);">
+          <div class="step-who" style="color:var(--f6);">Chief of Staff</div>
+          <div class="step-action">Manages Founder Calendar & Roadmap</div>
+          <ul class="step-detail">
+            <li>Content shoots, events, press, speaking</li>
+            <li>Maintains 12-month visibility roadmap</li>
+            <li>Ensures founder briefs are prepared before every initiative</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f6);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">coordinates</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f6);">
+          <div class="step-who" style="color:var(--f6);">PR Firm + Talent Agent</div>
+          <div class="step-action">Manages External Opportunities</div>
+          <ul class="step-detail">
+            <li>Evaluates high-leverage opportunities</li>
+            <li>Handles media & speaking invitations</li>
+            <li>Partnerships & collaboration requests</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f6);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">prepares</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f6);">
+          <div class="step-who" style="color:var(--f6);">Head of Social Media & Founder Platform</div>
+          <div class="step-action">Architects Founder Content Roadmap</div>
+          <ul class="step-detail">
+            <li>12-month founder content plan</li>
+            <li>Aligns science + luxury in all posts</li>
+            <li>Integrates retail moments & PR calendar</li>
+            <li>Owns founder posting cadence</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f6);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">executes via</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f6);">
+          <div class="step-who" style="color:var(--f6);">Lead Videographer + Creative Team</div>
+          <div class="step-action">Captures Founder Content</div>
+          <ul class="step-detail">
+            <li>2 event shoots/month</li>
+            <li>2 editorial environments/month</li>
+            <li>Founder videos, BTS footage</li>
+            <li>Brand book & mood board adherence</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f6);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">amplified by</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f6);">
+          <div class="step-who" style="color:var(--f6);">Influencer & VIP Relations Manager + Social Media Manager</div>
+          <div class="step-action">Amplifies Reach</div>
+          <ul class="step-detail">
+            <li>VIP partnerships, influencer seeding</li>
+            <li>UGC program deployment</li>
+            <li>Community engagement & KPI tracking</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       FLOW 6 — RETAIL ACTIVATION
+  ══════════════════════════════════════════════════════ -->
+  <div class="flow-block">
+    <div class="flow-header">
+      <div class="flow-number" style="background:var(--f7);">6</div>
+      <div>
+        <div class="flow-title" style="color:var(--f7);">Retail Activation</div>
+        <div class="flow-subtitle">Bridging marketing and sales at the store level</div>
+      </div>
+    </div>
+
+    <div class="steps-row">
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f7);">
+          <div class="step-who" style="color:var(--f7);">Director of Brand Marketing</div>
+          <div class="step-action">Sets Monthly Campaign Theme & Assets</div>
+          <ul class="step-detail">
+            <li>Campaign frameworks & tools</li>
+            <li>Communicates launch packages to all departments</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f7);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">feeds into</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f7);">
+          <div class="step-who" style="color:var(--f7);">VP of Scientific Communications</div>
+          <div class="step-action">Provides Education Strategy</div>
+          <ul class="step-detail">
+            <li>Trains retail partners on brand science</li>
+            <li>Retail-ready claim sheets</li>
+            <li>Derm-facing decks via Lead Scientific Writer</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f7);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">handed to</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f7);">
+          <div class="step-who" style="color:var(--f7);">Director of Retail & Trade Marketing</div>
+          <div class="step-action">Bridges Sales & Marketing</div>
+          <ul class="step-detail">
+            <li>Retail launch toolkits</li>
+            <li>In-store storytelling</li>
+            <li>Visual merchandising planning & verification</li>
+            <li>Retail sales analysis with sales team</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f7);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">executes via</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f7);">
+          <div class="step-who" style="color:var(--f7);">Trade Marketing Manager</div>
+          <div class="step-action">Store-Level Execution</div>
+          <ul class="step-detail">
+            <li>Brand & retail-specific campaigns at store level</li>
+            <li>Executes approved co-op plans with retailers</li>
+            <li>Executes approved sampling programs</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f7);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">supported by</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f7);">
+          <div class="step-who" style="color:var(--f7);">Director of Growth & Marketing</div>
+          <div class="step-action">Digital Co-op Alignment</div>
+          <ul class="step-detail">
+            <li>Digital banners & paid placements at e-retail partners</li>
+            <li>CRM features & sampling integrations</li>
+            <li>Exclusive online launches</li>
+            <li>Aligns DTC & e-retail as one cohesive ecosystem</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       FLOW 7 — CRM & CUSTOMER LIFECYCLE
+  ══════════════════════════════════════════════════════ -->
+  <div class="flow-block">
+    <div class="flow-header">
+      <div class="flow-number" style="background:var(--f8);">7</div>
+      <div>
+        <div class="flow-title" style="color:var(--f8);">CRM & Customer Lifecycle</div>
+        <div class="flow-subtitle">Turning customers into loyal brand advocates</div>
+      </div>
+    </div>
+
+    <div class="steps-row">
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f8);">
+          <div class="step-who" style="color:var(--f8);">Director of Growth & Marketing</div>
+          <div class="step-action">Sets Global CRM Strategy</div>
+          <ul class="step-detail">
+            <li>Email, SMS, segmentation, retention, automation</li>
+            <li>Loyalty program & subscription strategy</li>
+            <li>Integrates founder authority & science education in lifecycle comms</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f8);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">owned & executed by</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f8);">
+          <div class="step-who" style="color:var(--f8);">Senior Manager, CRM</div>
+          <div class="step-action">Manages Full Lifecycle</div>
+          <ul class="step-detail">
+            <li>Onboarding → engagement → retention → re-engagement → churn prevention → advocacy</li>
+            <li>Strategic CRM calendar aligned to launches & promos</li>
+            <li>Segmentation & hyper-personalized messaging</li>
+            <li>A/B testing & KPI optimization</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f8);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">pulls assets from</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f8);">
+          <div class="step-who" style="color:var(--f8);">Creative Team + Scientific Writer</div>
+          <div class="step-action">Provides On-Brand Assets & Copy</div>
+          <ul class="step-detail">
+            <li>Luxury-tone, conversion-driven copy</li>
+            <li>Science-backed messaging frameworks</li>
+            <li>On-brand visual assets from DAM</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f8);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">deployed across</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f8);">
+          <div class="step-who" style="color:var(--f8);">Customer Touchpoints</div>
+          <div class="step-action">Omni-Channel Delivery</div>
+          <ul class="step-detail">
+            <li>Email & SMS campaigns</li>
+            <li>Push notifications</li>
+            <li>Loyalty program communications</li>
+            <li>Post-purchase flows & review generation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arrow" style="color:var(--f8);">
+        <div class="arrow-line"></div>
+        <div class="arrow-label">aligned with</div>
+      </div>
+
+      <div class="step">
+        <div class="step-card" style="border-color:var(--f8);">
+          <div class="step-who" style="color:var(--f8);">Customer Service</div>
+          <div class="step-action">Unified Customer Strategy</div>
+          <ul class="step-detail">
+            <li>Luxury-level tone & scientific credibility</li>
+            <li>Aligned with CRM & Sales under one strategy</li>
+            <li>Improves responsiveness without losing personalization</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</div>
+
+<footer style="text-align:center; padding:32px; border-top:1px solid #E8D4A8; font-size:9px; letter-spacing:3px; text-transform:uppercase; color:#B5A99C;">
+  Kat Burki Skincare &middot; Internal Document &middot; Confidential
+</footer>
+
+<script>
+function showPanel(id) {
+  document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  document.getElementById("panel-" + id).classList.add("active");
+  event.target.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>
