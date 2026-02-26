@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///Users/aventurino/Downloads/index_1.html -->
+<!-- saved from url=(0047)file:///Users/aventurino/Downloads/index_2.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -832,13 +832,13 @@
 
 <!-- NAV -->
 <nav class="top-nav">
-  <button class="nav-btn" onclick="showPanel(&#39;org&#39;)">Org Chart</button>
+  <button class="nav-btn active" onclick="showPanel(&#39;org&#39;)">Org Chart</button>
   <button class="nav-btn" onclick="showPanel(&#39;flows&#39;)">Operational Flows</button>
-  <button class="nav-btn active" onclick="showPanel(&#39;careers&#39;)">Open Positions</button>
+  <button class="nav-btn" onclick="showPanel(&#39;careers&#39;)">Open Positions</button>
 </nav>
 
 <!-- ORG CHART PANEL -->
-<div id="panel-org" class="panel">
+<div id="panel-org" class="panel active">
 <div class="canvas">
 
   <!-- ═══════════════════════════════════════ CEO ═══════════════════════════════════════ -->
@@ -2054,103 +2054,363 @@ function showPanel(id) {
 </style>
 
 <!-- CAREERS PANEL -->
-<div id="panel-careers" class="panel active">
-  <div class="careers-header">
-    <h2>Open Positions</h2>
-    <p>We are assembling a world-class team to build the next chapter of Kat Burki Skincare. Each role below is available to download as an editable Word document.</p>
+<div id="panel-careers" class="panel">
+
+  <!-- CARD GRID VIEW -->
+  <div id="careers-list">
+    <div class="careers-header">
+      <h2>Open Positions</h2>
+      <p>We are assembling a world-class team to build the next chapter of Kat Burki Skincare. Click any role to read and edit the full job description, then download your version as a Word document.</p>
+    </div>
+    <div class="careers-grid">
+      <div class="jd-card" onclick="openEditor(0)">
+        <div class="jd-dept">Leadership</div>
+        <div class="jd-title">Chief Marketing Officer</div>
+        <div class="jd-meta"><span>Reports to: CEO / Founder</span><span>Location: Flexible / Hybrid</span></div>
+        <div class="jd-summary">The brand's most senior marketing leader — architect of the global marketing ecosystem across brand strategy, digital growth, scientific communications, social media, and retail marketing.</div>
+        <span class="jd-open">Open &amp; Edit →</span>
+      </div>
+      <div class="jd-card" onclick="openEditor(1)">
+        <div class="jd-dept">Brand Marketing</div>
+        <div class="jd-title">Director of Brand Marketing</div>
+        <div class="jd-meta"><span>Reports to: CMO</span><span>Location: Flexible / Hybrid</span></div>
+        <div class="jd-summary">Guardian of Kat Burki's positioning, voice, and visual-narrative consistency. Owns the brand calendar, campaign frameworks, and launch strategy across all channels and markets.</div>
+        <span class="jd-open">Open &amp; Edit →</span>
+      </div>
+      <div class="jd-card" onclick="openEditor(2)">
+        <div class="jd-dept">Scientific Communications</div>
+        <div class="jd-title">Product Marketing Manager</div>
+        <div class="jd-meta"><span>Reports to: VP of Scientific Communications</span><span>Location: Flexible / Hybrid</span></div>
+        <div class="jd-summary">Central coordination hub connecting product development, science, marketing, and commercial execution. Owns product positioning, go-to-market planning, and all product-level briefs.</div>
+        <span class="jd-open">Open &amp; Edit →</span>
+      </div>
+      <div class="jd-card" onclick="openEditor(3)">
+        <div class="jd-dept">Creative</div>
+        <div class="jd-title">Creative Director</div>
+        <div class="jd-meta"><span>Reports to: CEO / Founder</span><span>Location: Flexible / Hybrid</span></div>
+        <div class="jd-summary">Visual guardian of the brand — responsible for building and protecting the entire Kat Burki aesthetic universe across campaigns, packaging, digital, social, retail, and founder content.</div>
+        <span class="jd-open">Open &amp; Edit →</span>
+      </div>
+      <div class="jd-card" onclick="openEditor(4)">
+        <div class="jd-dept">Creative</div>
+        <div class="jd-title">Content Director</div>
+        <div class="jd-meta"><span>Reports to: Creative Director</span><span>Location: Flexible / Hybrid</span></div>
+        <div class="jd-summary">Responsible for editorial strategy, content calendar, and all video and founder-led content. Bridges creative strategy with production, ensuring luxury coherence across every published piece.</div>
+        <span class="jd-open">Open &amp; Edit →</span>
+      </div>
+      <div class="jd-card" onclick="openEditor(5)">
+        <div class="jd-dept">Creative</div>
+        <div class="jd-title">Video Producer / Editor</div>
+        <div class="jd-meta"><span>Reports to: Creative Director</span><span>Location: Flexible / Hybrid</span></div>
+        <div class="jd-summary">Owns the post-production workflow and editing of all brand video content. Transforms raw footage into polished, luxury-grade assets optimized for all platforms.</div>
+        <span class="jd-open">Open &amp; Edit →</span>
+      </div>
+      <div class="jd-card" onclick="openEditor(6)">
+        <div class="jd-dept">Social Media</div>
+        <div class="jd-title">Head of Social Media &amp; Founder Platform</div>
+        <div class="jd-meta"><span>Reports to: CMO</span><span>Location: Flexible / Hybrid</span></div>
+        <div class="jd-summary">Owns strategic direction, content roadmap, and platform voice across all social channels — with particular focus on amplifying the Founder as a clinical authority and luxury innovator.</div>
+        <span class="jd-open">Open &amp; Edit →</span>
+      </div>
+      <div class="jd-card" onclick="openEditor(7)">
+        <div class="jd-dept">Partnerships &amp; Relations</div>
+        <div class="jd-title">Influencer &amp; VIP Relations Manager</div>
+        <div class="jd-meta"><span>Reports to: Chief of Staff</span><span>Location: Flexible / Hybrid</span></div>
+        <div class="jd-summary">Builds and manages Kat Burki's most valued external relationships — top-tier influencers, makeup artists, celebrity clients, VIP customers, and dermatologist partners.</div>
+        <span class="jd-open">Open &amp; Edit →</span>
+      </div>
+    </div>
   </div>
-  <div class="careers-grid">
 
-    <div class="jd-card">
-      <div class="jd-dept">Leadership</div>
-      <div class="jd-title">Chief Marketing Officer</div>
-      <div class="jd-meta">
-        <span>Reports to: CEO / Founder</span>
-        <span>Location: Flexible / Hybrid</span>
+  <!-- EDITOR VIEW -->
+  <div id="careers-editor" style="display:none;">
+    <div class="editor-topbar">
+      <button class="editor-back" onclick="closeEditor()">← Back to Positions</button>
+      <div class="editor-actions">
+        <button class="editor-btn" onclick="execCmd(&#39;bold&#39;)"><b>B</b></button>
+        <button class="editor-btn" onclick="execCmd(&#39;italic&#39;)"><i>I</i></button>
+        <button class="editor-btn" onclick="execCmd(&#39;underline&#39;)"><u>U</u></button>
+        <button class="editor-btn editor-dl" onclick="downloadDocx()">⬇ Download as Word</button>
       </div>
-      <div class="jd-summary">The brand's most senior marketing leader — architect of the global marketing ecosystem across brand strategy, digital growth, scientific communications, social media, and retail marketing.</div>
-      <a class="jd-download" href="file:///Users/aventurino/Downloads/01_Chief_Marketing_Officer_JD.docx" download="">↓ Download JD</a>
     </div>
-
-    <div class="jd-card">
-      <div class="jd-dept">Brand Marketing</div>
-      <div class="jd-title">Director of Brand Marketing</div>
-      <div class="jd-meta">
-        <span>Reports to: CMO</span>
-        <span>Location: Flexible / Hybrid</span>
-      </div>
-      <div class="jd-summary">Guardian of Kat Burki's positioning, voice, and visual-narrative consistency. Owns the brand calendar, campaign frameworks, and launch strategy across all channels and markets.</div>
-      <a class="jd-download" href="file:///Users/aventurino/Downloads/02_Director_Brand_Marketing_JD.docx" download="">↓ Download JD</a>
+    <div class="editor-wrap">
+      <div id="jd-editor" contenteditable="true" spellcheck="true"></div>
     </div>
-
-    <div class="jd-card">
-      <div class="jd-dept">Scientific Communications</div>
-      <div class="jd-title">Product Marketing Manager</div>
-      <div class="jd-meta">
-        <span>Reports to: VP of Scientific Communications</span>
-        <span>Location: Flexible / Hybrid</span>
-      </div>
-      <div class="jd-summary">Central coordination hub connecting product development, science, marketing, and commercial execution. Owns product positioning, go-to-market planning, and all product-level briefs.</div>
-      <a class="jd-download" href="file:///Users/aventurino/Downloads/03_Product_Marketing_Manager_JD.docx" download="">↓ Download JD</a>
-    </div>
-
-    <div class="jd-card">
-      <div class="jd-dept">Creative</div>
-      <div class="jd-title">Creative Director</div>
-      <div class="jd-meta">
-        <span>Reports to: CEO / Founder</span>
-        <span>Location: Flexible / Hybrid</span>
-      </div>
-      <div class="jd-summary">Visual guardian of the brand — responsible for building and protecting the entire Kat Burki aesthetic universe across campaigns, packaging, digital, social, retail, and founder content.</div>
-      <a class="jd-download" href="file:///Users/aventurino/Downloads/04_Creative_Director_JD.docx" download="">↓ Download JD</a>
-    </div>
-
-    <div class="jd-card">
-      <div class="jd-dept">Creative</div>
-      <div class="jd-title">Content Director</div>
-      <div class="jd-meta">
-        <span>Reports to: Creative Director</span>
-        <span>Location: Flexible / Hybrid</span>
-      </div>
-      <div class="jd-summary">Responsible for editorial strategy, content calendar, and all video and founder-led content. Bridges creative strategy with production, ensuring luxury coherence across every published piece.</div>
-      <a class="jd-download" href="file:///Users/aventurino/Downloads/05_Content_Director_JD.docx" download="">↓ Download JD</a>
-    </div>
-
-    <div class="jd-card">
-      <div class="jd-dept">Creative</div>
-      <div class="jd-title">Video Producer / Editor</div>
-      <div class="jd-meta">
-        <span>Reports to: Creative Director</span>
-        <span>Location: Flexible / Hybrid</span>
-      </div>
-      <div class="jd-summary">Owns the post-production workflow and editing of all brand video content. Transforms raw footage into polished, luxury-grade assets optimized for all platforms.</div>
-      <a class="jd-download" href="file:///Users/aventurino/Downloads/06_Video_Producer_Editor_JD.docx" download="">↓ Download JD</a>
-    </div>
-
-    <div class="jd-card">
-      <div class="jd-dept">Social Media</div>
-      <div class="jd-title">Head of Social Media &amp; Founder Platform</div>
-      <div class="jd-meta">
-        <span>Reports to: CMO</span>
-        <span>Location: Flexible / Hybrid</span>
-      </div>
-      <div class="jd-summary">Owns strategic direction, content roadmap, and platform voice across all social channels — with particular focus on amplifying the Founder as a clinical authority and luxury innovator.</div>
-      <a class="jd-download" href="file:///Users/aventurino/Downloads/07_Head_Social_Media_Founder_Platform_JD.docx" download="">↓ Download JD</a>
-    </div>
-
-    <div class="jd-card">
-      <div class="jd-dept">Partnerships &amp; Relations</div>
-      <div class="jd-title">Influencer &amp; VIP Relations Manager</div>
-      <div class="jd-meta">
-        <span>Reports to: Chief of Staff</span>
-        <span>Location: Flexible / Hybrid</span>
-      </div>
-      <div class="jd-summary">Builds and manages Kat Burki's most valued external relationships — top-tier influencers, makeup artists, celebrity clients, VIP customers, and dermatologist partners.</div>
-      <a class="jd-download" href="file:///Users/aventurino/Downloads/08_Influencer_VIP_Relations_Manager_JD.docx" download="">↓ Download JD</a>
-    </div>
-
   </div>
+
 </div>
+
+<style>
+/* ── CAREERS CARD GRID ── */
+.careers-header { text-align:center; padding:48px 24px 32px; }
+.careers-header h2 { font-family:'Cormorant Garamond',Georgia,serif; font-size:28px; color:#231E17; margin-bottom:10px; font-weight:400; letter-spacing:1px; }
+.careers-header p { color:#7A6E62; font-size:14px; max-width:580px; margin:0 auto; line-height:1.7; }
+.careers-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:24px; max-width:1100px; margin:0 auto; padding:0 32px 64px; }
+.jd-card { background:#fff; border:1px solid #E8E2D9; border-top:3px solid #C4973A; border-radius:4px; padding:28px 28px 24px; display:flex; flex-direction:column; gap:12px; cursor:pointer; transition:box-shadow 0.2s, transform 0.15s; }
+.jd-card:hover { box-shadow:0 6px 24px rgba(196,151,58,0.15); transform:translateY(-2px); }
+.jd-dept { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#C4973A; font-weight:600; }
+.jd-title { font-family:'Cormorant Garamond',Georgia,serif; font-size:19px; color:#231E17; font-weight:500; line-height:1.3; }
+.jd-meta { font-size:12px; color:#7A6E62; display:flex; flex-direction:column; gap:4px; }
+.jd-summary { font-size:13px; color:#5A5048; line-height:1.65; border-top:1px solid #F0EBE3; padding-top:12px; flex:1; }
+.jd-open { margin-top:4px; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#C4973A; font-weight:600; }
+
+/* ── EDITOR ── */
+.editor-topbar { position:sticky; top:0; z-index:100; background:#231E17; display:flex; align-items:center; justify-content:space-between; padding:12px 32px; gap:16px; }
+.editor-back { background:none; border:1px solid rgba(255,255,255,0.25); color:#fff; font-size:12px; letter-spacing:1px; padding:8px 16px; cursor:pointer; border-radius:3px; font-family:'Jost',sans-serif; transition:background 0.2s; }
+.editor-back:hover { background:rgba(255,255,255,0.1); }
+.editor-actions { display:flex; align-items:center; gap:8px; }
+.editor-btn { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#fff; width:34px; height:34px; border-radius:3px; cursor:pointer; font-size:14px; font-family:'Jost',sans-serif; transition:background 0.15s; }
+.editor-btn:hover { background:rgba(255,255,255,0.18); }
+.editor-dl { width:auto; padding:0 20px; background:#C4973A; border-color:#C4973A; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; }
+.editor-dl:hover { background:#a87e2d; border-color:#a87e2d; }
+.editor-wrap { max-width:780px; margin:0 auto; padding:48px 32px 80px; }
+#jd-editor { background:#fff; padding:56px 64px; min-height:80vh; border:1px solid #E8E2D9; border-radius:4px; outline:none; font-family:'Cormorant Garamond',Georgia,serif; font-size:15px; line-height:1.8; color:#231E17; box-shadow:0 2px 20px rgba(0,0,0,0.06); }
+#jd-editor h1 { font-size:26px; font-weight:600; margin-bottom:4px; letter-spacing:0.5px; }
+#jd-editor h2 { font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:#C4973A; margin:32px 0 10px; padding-bottom:6px; border-bottom:1px solid #E8D4A8; font-family:'Jost',sans-serif; font-weight:600; }
+#jd-editor h3 { font-size:14px; font-weight:600; color:#C4973A; margin:20px 0 6px; font-family:'Jost',sans-serif; }
+#jd-editor p { margin-bottom:10px; }
+#jd-editor ul { margin:0 0 12px 24px; }
+#jd-editor ul li { margin-bottom:5px; }
+#jd-editor .jd-meta-block { color:#7A6E62; font-size:13px; margin-bottom:24px; font-family:'Jost',sans-serif; }
+@media(max-width:600px) {
+  .careers-grid { grid-template-columns:1fr; padding:0 16px 48px; }
+  #jd-editor { padding:32px 24px; }
+  .editor-topbar { padding:10px 16px; }
+}
+</style>
+
+<script>
+const JD_DATA = [
+  {
+    title: "Chief Marketing Officer",
+    reportsTo: "CEO / Founder",
+    location: "Flexible / Hybrid",
+    dept: "Leadership",
+    file: "01_Chief_Marketing_Officer_JD.docx",
+    about: "Kat Burki Skincare is a modern luxury house built on healing biochemistry. Founded by gut-skin expert and formulator Kat Burki, the brand merges clinical-grade science with a refined visual world inspired by intellect and elegance. Our proprietary nutrient delivery system™, intelligent ingredient architectures, and cult-followed Vitamin Therapy innovations have made us one of the most distinctive voices in global prestige skincare. We are entering a major expansion phase across retail, digital, and international markets — and are assembling a world-class team to build the future of luxury skin health.",
+    summary: ["The Chief Marketing Officer is the brand's most senior marketing leader — the architect who transforms the Founder's vision into a globally coherent, revenue-generating, prestige marketing machine.", "This role oversees the full marketing ecosystem: brand strategy, digital growth, scientific communications, social media, retail marketing, and campaign execution across all global markets. The CMO bridges creative vision and commercial discipline, ensuring every touchpoint reflects Kat Burki's healing biochemistry philosophy with luxury precision.", "This is a rare leadership opportunity to define the next chapter of one of prestige beauty's most scientifically distinctive voices."],
+    responsibilities: [
+      { heading: "Brand Strategy & Vision Implementation", items: ["Translate the Founder/CEO's vision into a globally executable brand strategy", "Own brand positioning, messaging hierarchy, and luxury consistency across all markets", "Safeguard and evolve the brand's scientific authority and aesthetic integrity", "Develop and align annual brand calendars across retail, eCommerce, social, PR, and digital"] },
+      { heading: "Marketing Leadership & Team Management", items: ["Lead and unify the Brand Marketing, Scientific Communications, Digital & Growth, Social Media, and Retail Marketing departments", "Build, mentor, and inspire a world-class marketing team", "Implement rigorous workflows, KPIs, and forecasting discipline across all functions", "Drive cross-functional collaboration with Sales, Creative, Finance, and the Founder team"] },
+      { heading: "Digital & Growth Oversight", items: ["Oversee eCommerce, paid media, CRM, affiliate, and influencer performance ecosystems", "Ensure digital revenue growth while maintaining luxury brand positioning", "Drive global online expansion strategy across DTC and e-retail platforms"] },
+      { heading: "Campaign & Calendar Management", items: ["Set and consolidate the global campaign calendar across all departments", "Ensure all campaigns are developed cross-functionally and executed with precision", "Align campaign goals with revenue targets and retail partner commitments"] },
+      { heading: "Retail Marketing Execution", items: ["Partner with the Director of Retail & Trade Marketing to bridge sales and marketing", "Ensure brand consistency and scientific storytelling across all retail touchpoints", "Drive co-op activations, in-store campaigns, and visual merchandising alignment"] },
+      { heading: "Scientific & Content Marketing", items: ["Champion the brand's clinical authority and scientific narrative across all channels", "Ensure scientific accuracy is embedded in all marketing communications", "Collaborate with the VP of Scientific Communications on claims, language, and education"] }
+    ],
+    qualifications: ["12+ years of progressive marketing leadership in luxury beauty, fashion, or premium consumer goods", "Proven CMO or VP Marketing track record with demonstrated brand-building at scale", "Deep understanding of luxury consumer psychology and global prestige markets", "Command of both brand marketing and performance/digital disciplines", "Experience managing multi-department teams across brand, digital, content, and retail", "Strong analytical capability: forecasting, budget management, attribution, CAC/LTV optimization", "Scientific literacy — comfortable with clinical claims, ingredient education, and regulatory nuance", "Global market experience, particularly US, UK, and European prestige retail"],
+    success: ["Unified brand strategy executed consistently across all global markets and channels", "Measurable DTC and e-retail revenue growth with sustained luxury positioning", "A high-performing, aligned marketing organization operating with clarity and precision", "Founder visibility amplified across all touchpoints in a premium, on-brand manner", "Scientific authority established as a core differentiator in prestige skincare", "Seamless cross-functional collaboration across Creative, Sales, PR, and Finance"]
+  },
+  {
+    title: "Director of Brand Marketing",
+    reportsTo: "Chief Marketing Officer (CMO)",
+    location: "Flexible / Hybrid",
+    dept: "Brand Marketing",
+    file: "02_Director_Brand_Marketing_JD.docx",
+    about: "Kat Burki Skincare is a modern luxury house built on healing biochemistry. Founded by gut-skin expert and formulator Kat Burki, the brand merges clinical-grade science with a refined visual world inspired by intellect and elegance. Our proprietary nutrient delivery system™, intelligent ingredient architectures, and cult-followed Vitamin Therapy innovations have made us one of the most distinctive voices in global prestige skincare. We are entering a major expansion phase across retail, digital, and international markets — and are assembling a world-class team to build the future of luxury skin health.",
+    summary: ["The Director of Brand Marketing is the guardian of Kat Burki Skincare's positioning, voice, and visual-narrative consistency across every channel and market.", "This role owns the brand calendar, campaign frameworks, and launch strategy — ensuring that every initiative reflects the brand's healing biochemistry philosophy, luxury aesthetic, and clinical authority. The Director of Brand Marketing acts as the connective tissue across departments, making sure all functions speak with one unified brand voice."],
+    responsibilities: [
+      { heading: "Brand Positioning & Messaging", items: ["Own brand positioning, campaign messaging, and luxury/science narrative consistency", "Define and maintain the brand's voice across all touchpoints: retail, digital, social, PR, and founder content", "Ensure all external communications reflect Kat Burki's healing biochemistry philosophy with precision and elegance"] },
+      { heading: "Brand Calendar & Cross-Functional Alignment", items: ["Own and manage the overarching brand calendar: define monthly themes, ensure all departments have timely information", "Facilitate cross-functional alignment so every team — Creative, Digital, Social, Retail, Scientific Communications — is working toward unified brand moments", "Run regular calendar reviews and brand briefings to maintain strategic coherence"] },
+      { heading: "Campaign Development & Frameworks", items: ["Develop campaign frameworks ensuring all initiatives are built cross-functionally from inception", "Translate brand strategy into executable creative briefs, messaging hierarchies, and campaign toolkits", "Oversee campaign consistency from concept through execution across all channels"] },
+      { heading: "Launch Strategy", items: ["Prepare comprehensive launch packages for every new product or initiative (PR, Social, Retail, eCommerce, Digital)", "Create all tools that departments can activate at launch: toolkits, briefs, messaging guides, and visual assets", "Ensure launch architecture is coherent and synergistic across all touchpoints"] },
+      { heading: "Luxury & Science Brand Integrity", items: ["Partner with Scientific Communications to ensure scientific accuracy within all brand marketing materials", "Maintain luxury aesthetic standards across all brand expressions in coordination with the Creative team", "Monitor competitive landscape and evolve positioning to maintain market differentiation"] }
+    ],
+    qualifications: ["8–12 years in brand marketing within luxury beauty, fashion, or premium lifestyle", "Demonstrated ability to build and steward a prestige brand narrative at scale", "Exceptional strategic and creative thinking with strong executional discipline", "Experience managing cross-functional calendars and leading without direct authority", "Strong written communication skills — able to write and edit at brand-voice level", "Scientific or clinical beauty literacy strongly preferred", "Global market experience, particularly across US and European prestige retail"],
+    success: ["A single, consistent brand voice across every department and channel", "Campaign frameworks adopted and executed cross-functionally with precision", "Launch packages that enable every department to activate effectively and on-brand", "Brand calendar operating as the strategic north star for the entire organization", "Measurable improvement in brand perception, luxury positioning, and market differentiation"]
+  },
+  {
+    title: "Product Marketing Manager",
+    reportsTo: "VP of Scientific Communications",
+    location: "Flexible / Hybrid",
+    dept: "Scientific Communications",
+    file: "03_Product_Marketing_Manager_JD.docx",
+    about: "Kat Burki Skincare is a modern luxury house built on healing biochemistry. Founded by gut-skin expert and formulator Kat Burki, the brand merges clinical-grade science with a refined visual world inspired by intellect and elegance. Our proprietary nutrient delivery system™, intelligent ingredient architectures, and cult-followed Vitamin Therapy innovations have made us one of the most distinctive voices in global prestige skincare. We are entering a major expansion phase across retail, digital, and international markets — and are assembling a world-class team to build the future of luxury skin health.",
+    summary: ["The Product Marketing Manager is one of the most critical coordination roles at Kat Burki Skincare — the central hub that connects product development, scientific communications, marketing, and commercial execution.", "This role owns product positioning, go-to-market planning, and all product-level briefs. The Product Marketing Manager ensures that every product enters the market with a coherent narrative, a complete asset ecosystem, and a commercially sound strategy — from clinical storytelling to pricing to packaging oversight."],
+    responsibilities: [
+      { heading: "Product Positioning & Messaging", items: ["Own and maintain the positioning for every product in the Kat Burki portfolio", "Develop clinical storytelling frameworks that translate healing biochemistry science into compelling consumer narratives", "Ensure product messaging is consistent across DTC, e-retail, social, PR, and retail"] },
+      { heading: "Brief Writing & Cross-Functional Coordination", items: ["Write all product briefs — for launches, campaigns, retail activations, and digital executions", "Act as the central coordination point ensuring all departments have the product intelligence they need", "Maintain product roadmap documentation and positioning trackers"] },
+      { heading: "Go-To-Market Planning & Execution", items: ["Lead go-to-market planning and preparation for all new product launches", "Develop launch timelines, channel strategies, and cross-functional rollout plans", "Ensure all GTM elements — assets, copy, retail materials, digital content — are delivered on schedule"] },
+      { heading: "Pricing & Merchandising Strategy", items: ["Support pricing strategy development in alignment with luxury positioning and margin targets", "Contribute to merchandising strategy across DTC, e-retail, and retail channels", "Monitor competitive pricing and positioning to inform recommendations"] },
+      { heading: "Product Asset Oversight", items: ["Oversee all product-related asset production: pack shots, PDPs, brand imagery, and education materials", "Ensure packaging copy, claims, and product descriptions meet both scientific standards and brand voice", "Collaborate with Creative and Scientific Communications on asset accuracy and luxury alignment"] }
+    ],
+    qualifications: ["5–8 years in product marketing within beauty, skincare, wellness, or premium consumer goods", "Exceptional brief-writing and cross-functional communication skills", "Strong project management capability — able to orchestrate multiple launches simultaneously", "Scientific or clinical literacy — comfortable with ingredient claims and clinical narratives", "Experience with pricing strategy and go-to-market planning in a luxury context", "Detail-oriented with strong ownership mindset and accountability"],
+    success: ["Every product launches with a complete, coherent, on-brand narrative and asset ecosystem", "All departments are briefed, aligned, and prepared well ahead of every launch", "Product positioning is clearly documented, consistently applied, and commercially effective", "Clinical stories are translated into consumer-ready messaging that drives conversion", "Cross-functional workflows are streamlined, reducing launch delays and misalignments"]
+  },
+  {
+    title: "Creative Director",
+    reportsTo: "CEO / Founder",
+    location: "Flexible / Hybrid",
+    dept: "Creative",
+    file: "04_Creative_Director_JD.docx",
+    about: "Kat Burki Skincare is a modern luxury house built on healing biochemistry. Founded by gut-skin expert and formulator Kat Burki, the brand merges clinical-grade science with a refined visual world inspired by intellect and elegance. Our proprietary nutrient delivery system™, intelligent ingredient architectures, and cult-followed Vitamin Therapy innovations have made us one of the most distinctive voices in global prestige skincare. We are entering a major expansion phase across retail, digital, and international markets — and are assembling a world-class team to build the future of luxury skin health.",
+    summary: ["The Creative Director is the visual guardian of Kat Burki Skincare — responsible for building and protecting the brand's entire aesthetic universe.", "Reporting directly to the Founder, this role translates the CEO's vision into a cohesive, luxury visual world across all touchpoints: campaigns, packaging, digital, social, retail, and founder content. The Creative Director sets the aesthetic standard, leads all creative agencies and internal creative talent, and ensures that every visual expression of the brand reflects its clinical authority and refined sensibility."],
+    responsibilities: [
+      { heading: "Visual Ecosystem Leadership", items: ["Own and evolve the complete visual identity of Kat Burki Skincare", "Define and maintain aesthetic standards across all brand touchpoints: packaging, campaigns, digital, retail, social, and PR", "Ensure every creative output reflects the brand's luxury positioning, clinical authority, and founder's unique vision"] },
+      { heading: "Campaign Strategy & Execution", items: ["Implement the Founder/CEO's campaign vision — translating concepts into mood boards, visual hierarchies, and creative briefs", "Lead the development of all campaign creative from concept through final delivery", "Ensure campaigns are visually cohesive across all channels and markets"] },
+      { heading: "Team & Agency Leadership", items: ["Lead and mentor the internal creative team: Art Director, Copywriter, Lead Videographer, Video Producer/Editor, Content Director", "Direct all external creative agencies with precision and brand clarity", "Build a culture of luxury craft, creative rigor, and on-brand execution"] },
+      { heading: "Luxury Alignment & Founder Positioning", items: ["Ensure all creative outputs maintain luxury coherence and founder positioning", "Collaborate closely with the Founder on personal brand visual strategy and content direction", "Protect the brand's visual distinctiveness in a crowded prestige skincare landscape"] },
+      { heading: "Science-Driven Creative", items: ["Develop infographic and visual science content in cross-functional collaboration with the Scientific Communications department", "Ensure scientific storytelling is visually compelling, accurate, and brand-aligned", "Build a visual language for healing biochemistry that is both credible and beautiful"] },
+      { heading: "DAM & Asset Management", items: ["Oversee the Digital Asset Management (DAM) system — ensuring all assets are organized, accessible, and current across all touchpoints", "Establish asset workflows, versioning standards, and delivery protocols"] }
+    ],
+    qualifications: ["10–15 years of creative leadership experience in luxury beauty, fashion, or premium lifestyle", "A portfolio demonstrating world-class brand identity, campaign creative, and visual storytelling", "Proven experience leading creative teams and directing external agencies", "Deep luxury sensibility — an intuitive understanding of prestige aesthetics and consumer psychology", "Experience building visual systems for science-driven or clinical brands strongly preferred", "Strong collaboration skills — able to work closely with and interpret the Founder's vision", "Proficiency across the full creative production ecosystem: photography, video, digital, print, and packaging"],
+    success: ["A visually unified brand world that is instantly recognizable as Kat Burki", "Campaign creative that elevates both luxury positioning and scientific authority", "A high-performing creative team and agency network operating at luxury standard", "Founder visual presence elevated and protected across all platforms", "Science storytelling rendered beautifully — credible, compelling, and brand-consistent", "DAM system operating efficiently as the single source of truth for all brand assets"]
+  },
+  {
+    title: "Content Director",
+    reportsTo: "Creative Director",
+    location: "Flexible / Hybrid",
+    dept: "Creative",
+    file: "05_Content_Director_JD.docx",
+    about: "Kat Burki Skincare is a modern luxury house built on healing biochemistry. Founded by gut-skin expert and formulator Kat Burki, the brand merges clinical-grade science with a refined visual world inspired by intellect and elegance. Our proprietary nutrient delivery system™, intelligent ingredient architectures, and cult-followed Vitamin Therapy innovations have made us one of the most distinctive voices in global prestige skincare. We are entering a major expansion phase across retail, digital, and international markets — and are assembling a world-class team to build the future of luxury skin health.",
+    summary: ["The Content Director is responsible for the editorial strategy, content calendar, and all video and founder-led content at Kat Burki Skincare.", "Reporting to the Creative Director, this role ensures that every piece of content — from founder series to social campaigns to shoot planning — is strategically conceived, luxury-aligned, and executed with precision. The Content Director is the operational engine of the creative content function, bridging strategy with production."],
+    responsibilities: [
+      { heading: "Content Strategy & Social Calendar", items: ["Own and manage the overarching social and content calendar across all platforms", "Develop content strategies that align with brand campaigns, product launches, retail moments, and founder visibility initiatives", "Ensure content pillars — science, luxury, founder authority, clinical efficacy — are consistently represented across all platforms"] },
+      { heading: "Founder Visibility Content & Strategy", items: ["Lead all founder-facing content strategy: series, educational content, lifestyle, and science storytelling", "Collaborate with the Chief of Staff and Head of Social Media on founder calendar alignment", "Develop content that elevates the founder as a clinical authority, luxury innovator, and brand face"] },
+      { heading: "Video Production Planning & Oversight", items: ["Plan and oversee all video shoots from brief through final delivery", "Collaborate with the Lead Videographer and Video Producer/Editor on production standards and timelines", "Ensure video content reflects brand identity, luxury positioning, and clinical authority"] },
+      { heading: "Luxury Adherence & Creative Direction", items: ["Maintain luxury aesthetic standards across all content outputs", "Provide creative direction to videographers, photographers, and content creators on set and in post-production", "Review and approve all content before submission to Creative Director"] },
+      { heading: "Digital Asset Management", items: ["Oversee the DAM system — ensuring all content assets are organized, tagged, version-controlled, and accessible", "Develop and maintain asset delivery workflows for all departments and retail/e-retail partners", "Ensure assets are available at the right specifications across all touchpoints"] }
+    ],
+    qualifications: ["7–10 years in content strategy, editorial direction, or creative production within luxury beauty, fashion, or premium lifestyle", "Strong editorial instinct combined with operational and production management skills", "Experience managing content calendars for multi-platform, multi-market brands", "Proven ability to develop founder or talent-led content strategies", "Deep understanding of luxury content aesthetics and social platform dynamics", "Experience managing DAM systems and cross-departmental asset workflows preferred", "Collaborative and highly organized — able to manage multiple workstreams simultaneously"],
+    success: ["A content calendar that operates as a strategic asset — aligned with launches, campaigns, and retail moments", "Founder content elevated to luxury editorial standard across all platforms", "Video production running on time, on budget, and on brand", "DAM system operating as the reliable single source of truth for all content assets", "Consistent luxury aesthetic maintained across every piece of published content"]
+  },
+  {
+    title: "Video Producer / Editor",
+    reportsTo: "Creative Director",
+    location: "Flexible / Hybrid",
+    dept: "Creative",
+    file: "06_Video_Producer_Editor_JD.docx",
+    about: "Kat Burki Skincare is a modern luxury house built on healing biochemistry. Founded by gut-skin expert and formulator Kat Burki, the brand merges clinical-grade science with a refined visual world inspired by intellect and elegance. Our proprietary nutrient delivery system™, intelligent ingredient architectures, and cult-followed Vitamin Therapy innovations have made us one of the most distinctive voices in global prestige skincare. We are entering a major expansion phase across retail, digital, and international markets — and are assembling a world-class team to build the future of luxury skin health.",
+    summary: ["The Video Producer / Editor is responsible for the post-production quality, editing workflow, and timely delivery of all video content at Kat Burki Skincare.", "Working closely with the Content Director and Lead Videographer, this role transforms raw footage into polished, luxury-grade video assets ready for publication across all platforms. Speed, precision, and an unwavering commitment to brand aesthetic are the defining requirements of this role."],
+    responsibilities: [
+      { heading: "Video Post-Production & Editing", items: ["Own the end-to-end post-production workflow for all brand video content", "Edit footage to luxury standard: precise color grading, sound design, motion graphics, and text overlays", "Deliver final assets optimized for all platforms: Instagram, TikTok, YouTube, DTC, e-retail, and paid media"] },
+      { heading: "Quick Turnaround & Agile Production", items: ["Maintain fast turnaround timelines without sacrificing quality", "Develop and manage an efficient editing workflow that supports the brand's content cadence", "Prioritize and manage multiple editing projects simultaneously"] },
+      { heading: "Brand Adherence & Luxury Refinement", items: ["Ensure every edited piece reflects Kat Burki's luxury visual language: mood, tone, pacing, and typography", "Work closely with the Creative Director and Content Director on brand aesthetic standards", "Review all edits against brand book, font usage, logo guidelines, and mood board references"] },
+      { heading: "Collaboration with Lead Videographer", items: ["Work in close partnership with the Lead Videographer from shoot planning through final delivery", "Provide pre-production feedback on shot lists to facilitate efficient editing", "Manage footage ingest, organization, and archiving"] },
+      { heading: "Asset Management & Delivery", items: ["Prepare and deliver video assets to spec for all channels and partners", "Maintain organized project archives within the DAM system", "Ensure all deliverables are correctly formatted and delivered on schedule"] }
+    ],
+    qualifications: ["5–8 years of professional video editing experience, ideally within luxury beauty, fashion, or premium lifestyle", "Expert-level proficiency in Adobe Premiere Pro, After Effects, and DaVinci Resolve", "Strong sense of luxury visual aesthetics: pacing, color, typography, and motion", "Experience editing for multi-platform distribution (social, DTC, paid media, e-retail)", "Ability to work at pace without compromising quality", "Strong organizational skills and meticulous attention to detail", "Experience with DAM systems and asset management workflows preferred"],
+    success: ["8+ polished, publication-ready video assets delivered monthly", "Editing turnaround times that support the brand's content cadence without bottlenecks", "Consistent luxury aesthetic across all edited video content", "Seamless collaboration with the Lead Videographer and Content Director", "Well-organized, accessible video archive within the DAM system"]
+  },
+  {
+    title: "Head of Social Media & Founder Platform",
+    reportsTo: "Chief Marketing Officer (CMO)",
+    location: "Flexible / Hybrid",
+    dept: "Social Media",
+    file: "07_Head_Social_Media_Founder_Platform_JD.docx",
+    about: "Kat Burki Skincare is a modern luxury house built on healing biochemistry. Founded by gut-skin expert and formulator Kat Burki, the brand merges clinical-grade science with a refined visual world inspired by intellect and elegance. Our proprietary nutrient delivery system™, intelligent ingredient architectures, and cult-followed Vitamin Therapy innovations have made us one of the most distinctive voices in global prestige skincare. We are entering a major expansion phase across retail, digital, and international markets — and are assembling a world-class team to build the future of luxury skin health.",
+    summary: ["The Head of Social Media & Founder Platform is responsible for the strategic direction, content roadmap, and platform voice of Kat Burki Skincare across all social channels — with a particular focus on amplifying the Founder as a clinical authority and luxury innovator.", "Reporting to the CMO, this role owns the 12-month founder content roadmap, the brand's social positioning strategy, and all platform-level editorial decisions. This is a senior leadership role that sits at the intersection of brand strategy, science communication, and digital storytelling."],
+    responsibilities: [
+      { heading: "Founder Content Roadmap", items: ["Architect and own the 12-month founder content roadmap across all platforms", "Develop content strategies that position Kat Burki as a luxury clinical authority, not a social-first creator", "Align founder content with product launches, retail moments, PR activations, and seasonal brand themes", "Collaborate closely with the Chief of Staff on founder calendar, shoots, and visibility opportunities"] },
+      { heading: "Brand Social Strategy & Platform Voice", items: ["Own the brand's platform voice across Instagram, TikTok, YouTube, LinkedIn, and emerging channels", "Define and protect the brand's social positioning: luxury, clinical science, founder authority", "Oversee all social content calendars — ensuring strategic coherence across brand and founder handles"] },
+      { heading: "Science & Luxury Alignment", items: ["Integrate clinical science storytelling into all social content with accuracy and luxury refinement", "Collaborate with Scientific Communications on claims, science translation, and educational content", "Ensure social content is never sacrificed for trending formats at the expense of brand positioning"] },
+      { heading: "Retail & PR Calendar Amplification", items: ["Align social content strategy with retail launches, in-store activations, and co-op opportunities", "Amplify PR moments, press coverage, and brand partnerships through social ecosystems", "Coordinate with Retail and Brand Marketing teams on launch support and retailer content"] },
+      { heading: "Cultural Relevancy & Trend Intelligence", items: ["Monitor cultural trends and platform evolutions with a luxury-first lens", "Introduce cultural relevance strategically — never at the expense of brand positioning", "Identify high-leverage moments for brand participation: awards seasons, wellness conversations, clinical beauty discourse"] },
+      { heading: "Team Leadership", items: ["Lead and mentor the Social Media Manager", "Oversee external community management freelancers and social agencies", "Implement KPI frameworks, performance reporting, and platform analytics cadence"] }
+    ],
+    qualifications: ["8–12 years in social media strategy or digital content leadership within luxury beauty, fashion, or premium lifestyle", "Proven track record building founder or talent-led social platforms at scale", "Deep understanding of luxury social aesthetics and premium content standards", "Scientific or clinical beauty literacy — able to translate complex science for social audiences", "Strong leadership and team management experience", "Strategic thinker who balances cultural agility with brand discipline", "Experience managing agencies, freelancers, and cross-functional content workflows"],
+    success: ["A 12-month founder content roadmap that is strategic, brand-coherent, and commercially aligned", "Consistent platform voice that elevates Kat Burki as a luxury clinical authority", "Social channels operating as a premium editorial platform — not just a posting schedule", "Measurable growth in founder platform authority, engagement quality, and community size", "Seamless integration of retail, PR, and campaign moments into the social ecosystem", "A high-performing Social Media Manager and community management operation"]
+  },
+  {
+    title: "Influencer & VIP Relations Manager",
+    reportsTo: "Chief of Staff",
+    location: "Flexible / Hybrid",
+    dept: "Partnerships & Relations",
+    file: "08_Influencer_VIP_Relations_Manager_JD.docx",
+    about: "Kat Burki Skincare is a modern luxury house built on healing biochemistry. Founded by gut-skin expert and formulator Kat Burki, the brand merges clinical-grade science with a refined visual world inspired by intellect and elegance. Our proprietary nutrient delivery system™, intelligent ingredient architectures, and cult-followed Vitamin Therapy innovations have made us one of the most distinctive voices in global prestige skincare. We are entering a major expansion phase across retail, digital, and international markets — and are assembling a world-class team to build the future of luxury skin health.",
+    summary: ["The Influencer & VIP Relations Manager is responsible for building and managing Kat Burki Skincare's most valued external relationships — from top-tier influencers and makeup artists to celebrity clients, VIP customers, and dermatologist partners.", "Reporting to the Chief of Staff, this role coordinates all seeding, gifting, event guest management, and VIP touchpoints. It is a high-touch, relationship-first role that requires exceptional organizational ability, a luxury service mindset, and deep knowledge of the prestige beauty influencer landscape."],
+    responsibilities: [
+      { heading: "VIP Partner Relationships", items: ["Build and manage ongoing relationships with key influencers, makeup artists, celebrities, and top-tier customers", "Develop personalized relationship strategies for each tier of VIP partner", "Act as the primary point of contact for all VIP and talent-facing communications", "Identify and cultivate new high-value relationships aligned with the brand's luxury and clinical positioning"] },
+      { heading: "Seeding & Gifting Programs", items: ["Oversee all product seeding initiatives — from concept through logistics and follow-up", "Develop and manage gifting programs for key cultural moments, launches, and press activations", "Ensure all seeding and gifting reflects the brand's luxury presentation standards", "Track and report on seeding outcomes: coverage generated, sentiment, and reach"] },
+      { heading: "Events Guest List Management", items: ["Own the guest list strategy and management for all brand events and activations", "Coordinate with PR, Social, and the Founder Team on event invite strategy", "Manage RSVPs, VIP logistics, and on-site relationship management at events"] },
+      { heading: "Dermatologist & Expert Relations", items: ["Build and maintain relationships with dermatologists, aesthetic practitioners, and medical experts", "Coordinate all expert outreach in close collaboration with the Scientific Communications department", "Support clinical credibility initiatives by connecting brand science with medical community advocates"] },
+      { heading: "Scheduling, Logistics & Administration", items: ["Manage scheduling, logistics, and administrative coordination for all VIP and influencer activities", "Maintain accurate relationship databases, gifting logs, and partnership trackers", "Ensure all VIP touchpoints are documented and followed up with precision and care"] }
+    ],
+    qualifications: ["5–8 years in influencer relations, talent management, VIP marketing, or luxury brand partnerships", "Established network within the beauty, wellness, or luxury lifestyle influencer and media landscape", "Exceptional interpersonal skills — warm, professional, and confident in high-touch relationship management", "Highly organized with strong administrative and logistical ability", "Experience managing seeding programs, gifting logistics, and event guest coordination", "Comfort working with dermatologists, medical experts, and scientific communities preferred", "Discretion, professionalism, and luxury service standards in all external interactions"],
+    success: ["A curated, actively managed roster of high-value VIP and influencer relationships", "Seeding and gifting programs that consistently generate authentic coverage and brand advocacy", "Flawlessly executed event guest experiences that reinforce brand prestige", "Dermatologist and expert relationships that strengthen clinical credibility", "All VIP touchpoints documented, tracked, and followed up with luxury-level precision"]
+  }
+];
+
+function buildEditorHTML(jd) {
+  let html = `<h1>${jd.title}</h1>`;
+  html += `<div class="jd-meta-block">`;
+  html += `<div><strong>Brand:</strong> Kat Burki Skincare</div>`;
+  html += `<div><strong>Reports to:</strong> ${jd.reportsTo}</div>`;
+  html += `<div><strong>Location:</strong> ${jd.location}</div>`;
+  html += `</div>`;
+
+  html += `<h2>About the Brand</h2><p>${jd.about}</p>`;
+
+  html += `<h2>Role Summary</h2>`;
+  jd.summary.forEach(s => { html += `<p>${s}</p>`; });
+
+  html += `<h2>Key Responsibilities</h2>`;
+  jd.responsibilities.forEach(section => {
+    html += `<h3>${section.heading}</h3><ul>`;
+    section.items.forEach(item => { html += `<li>${item}</li>`; });
+    html += `</ul>`;
+  });
+
+  html += `<h2>Qualifications</h2><ul>`;
+  jd.qualifications.forEach(q => { html += `<li>${q}</li>`; });
+  html += `</ul>`;
+
+  html += `<h2>Success in This Role Looks Like</h2><ul>`;
+  jd.success.forEach(s => { html += `<li>${s}</li>`; });
+  html += `</ul>`;
+
+  return html;
+}
+
+let currentJD = null;
+
+function openEditor(index) {
+  currentJD = JD_DATA[index];
+  document.getElementById('jd-editor').innerHTML = buildEditorHTML(currentJD);
+  document.getElementById('careers-list').style.display = 'none';
+  document.getElementById('careers-editor').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function closeEditor() {
+  document.getElementById('careers-editor').style.display = 'none';
+  document.getElementById('careers-list').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function execCmd(cmd) {
+  document.execCommand(cmd, false, null);
+  document.getElementById('jd-editor').focus();
+}
+
+function downloadDocx() {
+  const editor = document.getElementById('jd-editor');
+  const title = currentJD ? currentJD.title : 'Job Description';
+  const filename = currentJD ? currentJD.file : 'job_description.docx';
+
+  // Build a full HTML doc and convert to blob for download
+  const content = editor.innerHTML;
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <style>
+    body { font-family: Garamond, Georgia, serif; font-size: 12pt; color: #231E17; margin: 72pt; line-height: 1.6; }
+    h1 { font-size: 22pt; font-weight: bold; margin-bottom: 4pt; }
+    h2 { font-size: 9pt; letter-spacing: 2pt; text-transform: uppercase; color: #C4973A; margin-top: 24pt; margin-bottom: 6pt; border-bottom: 1pt solid #C4973A; padding-bottom: 4pt; font-family: Arial, sans-serif; }
+    h3 { font-size: 11pt; font-weight: bold; color: #C4973A; margin-top: 14pt; margin-bottom: 4pt; font-family: Arial, sans-serif; }
+    p { margin-bottom: 8pt; }
+    ul { margin-left: 18pt; margin-bottom: 8pt; }
+    li { margin-bottom: 4pt; }
+    .jd-meta-block { color: #7A6E62; font-size: 10pt; margin-bottom: 18pt; font-family: Arial, sans-serif; }
+  </style>
+  </head><body>${content}</body></html>`;
+
+  const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename.replace('.docx', '_edited.doc');
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
 
 
 </body></html>
