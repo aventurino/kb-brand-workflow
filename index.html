@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///Users/aventurino/Downloads/index_2.html -->
+<!-- saved from url=(0047)file:///Users/aventurino/Downloads/index_4.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2127,9 +2127,11 @@ function showPanel(id) {
     <div class="editor-topbar">
       <button class="editor-back" onclick="closeEditor()">← Back to Positions</button>
       <div class="editor-actions">
+        <span id="save-indicator" style="font-size:11px;color:#a8c8a0;letter-spacing:1px;opacity:0;transition:opacity 0.4s;">Saved ✓</span>
         <button class="editor-btn" onclick="execCmd(&#39;bold&#39;)"><b>B</b></button>
         <button class="editor-btn" onclick="execCmd(&#39;italic&#39;)"><i>I</i></button>
         <button class="editor-btn" onclick="execCmd(&#39;underline&#39;)"><u>U</u></button>
+        <button id="reset-btn" class="editor-btn editor-reset" onclick="resetJD(currentIndex)" style="display:none;">↺ Reset</button>
         <button class="editor-btn editor-dl" onclick="downloadDocx()">⬇ Download as Word</button>
       </div>
     </div>
@@ -2153,6 +2155,8 @@ function showPanel(id) {
 .jd-meta { font-size:12px; color:#7A6E62; display:flex; flex-direction:column; gap:4px; }
 .jd-summary { font-size:13px; color:#5A5048; line-height:1.65; border-top:1px solid #F0EBE3; padding-top:12px; flex:1; }
 .jd-open { margin-top:4px; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#C4973A; font-weight:600; }
+.jd-edited-badge { font-size:9px; letter-spacing:1.5px; text-transform:uppercase; background:#e8f4e8; color:#3a7a3a; border:1px solid #3a7a3a; border-radius:2px; padding:2px 7px; font-weight:600; align-self:flex-start; margin-top:-4px; }
+.editor-reset { width:auto; padding:0 14px; font-size:11px; letter-spacing:1px; color:#ffb899; border-color:rgba(255,140,100,0.3); }
 
 /* ── EDITOR ── */
 .editor-topbar { position:sticky; top:0; z-index:100; background:#231E17; display:flex; align-items:center; justify-content:space-between; padding:12px 32px; gap:16px; }
@@ -2362,20 +2366,95 @@ function buildEditorHTML(jd) {
 }
 
 let currentJD = null;
+let currentIndex = null;
+let autoSaveTimer = null;
+
+function storageKey(index) {
+  return 'kb_jd_' + index;
+}
+
+function saveToStorage() {
+  if (currentIndex === null) return;
+  const content = document.getElementById('jd-editor').innerHTML;
+  localStorage.setItem(storageKey(currentIndex), content);
+  showSaveIndicator();
+}
+
+function showSaveIndicator() {
+  const el = document.getElementById('save-indicator');
+  if (!el) return;
+  el.textContent = 'Saved ✓';
+  el.style.opacity = '1';
+  clearTimeout(el._fadeTimer);
+  el._fadeTimer = setTimeout(() => { el.style.opacity = '0'; }, 2000);
+}
+
+function hasLocalEdits(index) {
+  return !!localStorage.getItem(storageKey(index));
+}
+
+function resetJD(index) {
+  if (!confirm('Reset to original? Your edits for this role will be lost.')) return;
+  localStorage.removeItem(storageKey(index));
+  const editor = document.getElementById('jd-editor');
+  editor.innerHTML = buildEditorHTML(JD_DATA[index]);
+  showSaveIndicator();
+}
 
 function openEditor(index) {
   currentJD = JD_DATA[index];
-  document.getElementById('jd-editor').innerHTML = buildEditorHTML(currentJD);
+  currentIndex = index;
+  const saved = localStorage.getItem(storageKey(index));
+  const editor = document.getElementById('jd-editor');
+  editor.innerHTML = saved || buildEditorHTML(currentJD);
+
+  // Show/hide reset button based on whether edits exist
+  const resetBtn = document.getElementById('reset-btn');
+  if (resetBtn) resetBtn.style.display = saved ? 'inline-flex' : 'none';
+
+  // Auto-save on every keystroke with 1s debounce
+  editor.addEventListener('input', () => {
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(() => {
+      saveToStorage();
+      const resetBtn = document.getElementById('reset-btn');
+      if (resetBtn) resetBtn.style.display = 'inline-flex';
+    }, 1000);
+  });
+
   document.getElementById('careers-list').style.display = 'none';
   document.getElementById('careers-editor').style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function closeEditor() {
+  clearTimeout(autoSaveTimer);
+  saveToStorage(); // save immediately on close
+  // Update card to show "edited" badge if there are saved edits
+  updateCardBadges();
   document.getElementById('careers-editor').style.display = 'none';
   document.getElementById('careers-list').style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+function updateCardBadges() {
+  document.querySelectorAll('.jd-card').forEach((card, i) => {
+    let badge = card.querySelector('.jd-edited-badge');
+    if (hasLocalEdits(i)) {
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'jd-edited-badge';
+        badge.textContent = 'Edited';
+        card.insertBefore(badge, card.querySelector('.jd-open'));
+      }
+    } else {
+      if (badge) badge.remove();
+    }
+  });
+}
+
+// Run on load to restore badges
+document.addEventListener('DOMContentLoaded', updateCardBadges);
 
 function execCmd(cmd) {
   document.execCommand(cmd, false, null);
